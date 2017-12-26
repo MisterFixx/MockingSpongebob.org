@@ -27,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && !empty($_GET["txt"])) {
         $font_size++;
         $p = imagettfbbox($font_size, 0, "impact.ttf", $txt);
         $txt_width = $p[2] - $p[0];
-        $txt_height =$p[1] - $p[7]; // just in case you need it
     } 
     imagettftext($jpg_image, $font_size, 0, ($img_width - $txt_width) / 2, $img_height * 0.9, imagecolorallocate($jpg_image, 255, 255, 255), "impact.ttf", $txt);
     header("Content-type: image/jpeg");
