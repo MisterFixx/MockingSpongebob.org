@@ -1,10 +1,8 @@
-#the code behind MockingSpongebob.org
+### Mocking Spongebob
+Created by Mister_Fix
 
-Made by Mister_Fix.
+### Usage
+http://mockingspongebob.org/{text}
 
-#Usage: 
-https://MockingSpongebob.org/your_text_here
-
-#Additionally 
-
-This works with regular spaces but if you need forum friendly URLs, you can replace spaces with underscores (_) or plus signs (+), and/or add a .jpg file extension at the end, it'll work just fine.
+### Info
+Additionally, you can replace spaces with "+" or "\_" in order to support certain forums software or you can append ".jpg" to the end of the URL.
