@@ -1,35 +1,89 @@
 <?php
-
-ini_set("display_errors", 1);
-
-/*
- *  FUNCTIONS
- */
-function mock($string) {
-    $string = str_split(strtolower($string));
-    foreach($string as & $character) {
-        if (rand(0, 1)) { 
-            $character = strtoupper($character);
+require("./blur.inc.php");
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    if (isset($_GET['txt'])) {
+        ini_set('display_errors', 1);
+        $ogtxt=str_replace(['_','+','.jpg'], [' ',' ',''], strtolower($_GET['txt']));
+        $txt = randomize(str_replace(['_','+','.jpg'], [' ',' ',''], $_GET['txt']));
+        $image_path=selectBackground();
+        if (!isset($_GET['random'])){
+            $image_path="./base.jpg";
         }
+        list($img_width, $img_height, ,) = getimagesize($image_path);
+        
+        $jpg_image = imagecreatefromjpeg($image_path);
+        $textcolor = imagecolorallocate($jpg_image, 255, 255, 255);
+        $txt_max_width = intval(0.8 * $img_width);
+        $txt_max_height = intval(0.2* $img_height);
+        
+        
+        $font_size = 1;
+        $txt_width=0;
+        $txt_height=0;
+        //set text size based on width
+        do {
+            $font_size++;
+            $p = imagettfbbox($font_size,0,'./impact.ttf',$txt);
+            $txt_width=$p[2]-$p[0];
+        } while ($txt_width <= $txt_max_width);
+        
+        //decrease if too tall to max height threshold
+        do {
+            $font_size--;
+            $p = imagettfbbox($font_size,0,'./impact.ttf',$txt);
+            $txt_width=$p[2]-$p[0];
+            $txt_height=$p[1]-$p[7];
+        } while ($txt_height >= $txt_max_height);
+        
+        
+        $y = $img_height * 0.9; //position on image Y
+        $x = ($img_width - $txt_width) / 2; //position on image X, this is centered.
+        
+        //last operations, customize!
+        if (isset($_GET['color'])){
+            $textcolor=getColor($jpg_image, $_GET['color']);
+            if (isset($_GET['blur'])){
+                $jpg_image=blurImage($jpg_image);
+            }
+            imagettftext($jpg_image, $font_size, 0, $x, $y, $textcolor, './impact.ttf', $txt);//create image into variable
+        }else{
+            $textcolor=getColor($jpg_image, "white");
+            imagettftext($jpg_image, $font_size, 0, $x, $y, $textcolor, './impact.ttf', $txt);//create image into variable
+        }
+        //end customize!
+        
+        header('Content-type: image/jpeg');
+        imagejpeg($jpg_image);
+        imagedestroy($jpg_image);
+        
     }
-    return implode("", $string);
-}
 
-/*
- *  REQUEST
- */
-if ($_SERVER["REQUEST_METHOD"] == "GET" && !empty($_GET["txt"])) {
-    $txt = mock(str_replace(["_", "+", ".jpg"], [" ", " ", ""], $_GET["txt"]));
-    list($img_width, $img_height, ,) = getimagesize("base.jpg");
-    $jpg_image = imagecreatefromjpeg("base.jpg");
-    $font_size = 1;
-    while($txt_width <= intval(0.9 * $img_width)) {
-        $font_size++;
-        $p = imagettfbbox($font_size, 0, "impact.ttf", $txt);
-        $txt_width = $p[2] - $p[0];
-    } 
-    imagettftext($jpg_image, $font_size, 0, ($img_width - $txt_width) / 2, $img_height * 0.9, imagecolorallocate($jpg_image, 255, 255, 255), "impact.ttf", $txt);
-    header("Content-type: image/jpeg");
-    imagejpeg($jpg_image);
-    imagedestroy($jpg_image);
+}
+function randomize($str){
+    $str = str_split(strtolower($str));
+    foreach($str as & $char) {
+        if (rand(0, 1)) $char = strtoupper($char);
+    }
+    return implode('', $str);
+}
+function selectBackground(){
+    $backgrounds=[
+        "./base.jpg",
+        "./base1.jpg",
+        "./base2.jpg",
+    ];
+    
+    return $backgrounds[array_rand($backgrounds, 1)];
+}
+function getColor($image, $input){
+    $colors=[
+        "white" =>imagecolorallocate($image, 255, 255, 255),
+        "black"=>imagecolorallocate($image, 0, 0, 0),
+        "red"=>imagecolorallocate($image, 255, 20, 0),
+        "blue"=>imagecolorallocate($image, 0, 20, 255),
+        "green"=>imagecolorallocate($image, 0, 255, 0),
+    ];
+    $returnColor=$colors['white'];
+    if (isset($colors[strtolower($input)]))$returnColor=$colors[strtolower($input)];
+    return $returnColor;
 }
