@@ -123,6 +123,9 @@ span.code{
     html{
         font-size: 18px;
     }
+    .header{
+        padding: 24px;
+    }
     .main{
         padding: 24px;
     }
