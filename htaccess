@@ -4,9 +4,9 @@ Options -Indexes
 
 RewriteCond %{REQUEST_FILENAME} !-d 
 RewriteCond %{REQUEST_FILENAME}\.php -f 
-RewriteRule ^(.*)$ $1.php [NC]
+RewriteRule ^(.*)$ $1.php [NC,L]
 
 RewriteCond %{REQUEST_FILENAME} !-f 
 RewriteCond %{REQUEST_FILENAME} !-d     
-RewriteRule ^(.*)$ serve.php?txt=$1 [L] 
+RewriteRule ^(.*)$ serve.php?txt=$1 [NC,L] 
  
