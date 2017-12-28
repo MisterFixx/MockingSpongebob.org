@@ -2,6 +2,7 @@
 require("./assets/inc/blur.inc.php");
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['txt'])) {
+        ini_set('display_errors', 0);
         $ogtxt=str_replace(['_','+','.jpg'], [' ',' ',''], strtolower($_GET['txt']));
         if(isset($_GET['capitalize'])){
             $txt = strtoupper($ogtxt);
@@ -53,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         }
         imagettftext($jpg_image, $font_size, 0, $x, $y, $textcolor, './assets/fonts/impact.ttf', $txt);//create image into variable
         //end customize!
-            
+        
         header('Content-type: image/jpeg');
         imagejpeg($jpg_image);
         imagedestroy($jpg_image);   
@@ -68,12 +69,9 @@ function randomize($str){
     return implode('', $str);
 }
 function selectBackground(){
-    $backgrounds=[
-        "./assets/img/base.jpg",
-        "./assets/img/base1.jpg",
-        "./assets/img/base2.jpg",
-    ];
-    return $backgrounds[array_rand($backgrounds, 1)];
+    $files = glob('./assets/img/*.*');
+    $file = array_rand($files);
+    return $files[$file];
 }
 function getColor($image, $input){
     $colors=[
