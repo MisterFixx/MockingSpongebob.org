@@ -103,6 +103,10 @@ span.code{
     max-width: 500px;
 }
 
+#imageText{
+    padding: 0px 4px;
+}
+
 #imageSrcVal{
     padding: 6px;
     width: 100%;
