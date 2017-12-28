@@ -24,10 +24,6 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
     line-height: 1.1em;
 }
-a{
-    text-decoration: underline;
-    text-decoration-color: rgba(0,0,0,0.6);
-}
 em, i {
     font-style: italic;
 }
@@ -41,7 +37,7 @@ ul{
 }
 
 hr{
-    margin: 24px 0px;
+    margin: 36px 0px;
     border-color: rgba(25, 60, 77, 0.1);
 }
 

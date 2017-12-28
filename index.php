@@ -58,7 +58,7 @@
                 <hr>
                 <section class="credits">
                     <p>Created by <b>Mister_Fix</b> & <b>LeonFagan71</b></p>
-                    <p><i><b>Images served so far: 2,459</b></i></p>
+                    <p>Images served so far: <b>2,459</b></p>
                 </section>
             </div>
         </main>
