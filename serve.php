@@ -5,8 +5,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         ini_set('display_errors', 1);
         $ogtxt=str_replace(['_','+','.jpg'], [' ',' ',''], strtolower($_GET['txt']));
         $txt = randomize(str_replace(['_','+','.jpg'], [' ',' ',''], $_GET['txt']));
-        $image_path=selectBackground();
-        if (!isset($_GET['random'])){
+        if(isset($_GET['random'])){
+            $image_path=selectBackground();
+        }   
+        else {
             $image_path="./base.jpg";
         }
         list($img_width, $img_height, ,) = getimagesize($image_path);
@@ -40,17 +42,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $x = ($img_width - $txt_width) / 2; //position on image X, this is centered.
         
         //last operations, customize!
-        if (isset($_GET['color'])){
+        if(isset($_GET['color'])){
             $textcolor=getColor($jpg_image, $_GET['color']);
-            if (isset($_GET['blur'])){
-                $jpg_image=blurImage($jpg_image);
-            }
-            imagettftext($jpg_image, $font_size, 0, $x, $y, $textcolor, './impact.ttf', $txt);//create image into variable
         }else{
             $textcolor=getColor($jpg_image, "white");
-            imagettftext($jpg_image, $font_size, 0, $x, $y, $textcolor, './impact.ttf', $txt);//create image into variable
         }
+        if(isset($_GET['blur'])){
+            $jpg_image=blurImage($jpg_image);
+        }
+        imagettftext($jpg_image, $font_size, 0, $x, $y, $textcolor, './impact.ttf', $txt);//create image into variable
         //end customize!
+        
+        $conn = new mysqli('p:localhost', 'mcheads_me', 'qbxRL0xyqV', 'mcheads_msb');
+        $conn->query("UPDATE `requests` SET `count` = count + 1");
+        
+        $stmt = $conn->prepare("INSERT INTO data (data_value, data_count) VALUES (?, 1) ON DUPLICATE KEY UPDATE data_count=data_count + 1");
+        $stmt->bind_param("s", $ogtxt);
+        $stmt->execute();
         
         header('Content-type: image/jpeg');
         imagejpeg($jpg_image);
