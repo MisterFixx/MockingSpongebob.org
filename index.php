@@ -3,64 +3,7 @@
     <head>
         <title>Mocking Spongebob</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-            body,html{margin:0px;padding:0px;background:#eeeeee;}
-            #container{
-                position:fixed;
-                top:0px;
-                left:0px;
-                right:0px;
-                margin:auto;
-                bottom:0px;
-                width:80%;
-                height:70%;
-                min-height:300px;
-                
-                z-index:100;
-            }
-            #header{
-                position:fixed;
-                top:0px;
-                left:0px;
-                right:0px;
-                height:100px;
-                width:100%;
-                z-index:1000;
-                font-size:30px;
-                padding:10px;
-            }
-            #botright{
-                position:fixed;
-                bottom:10px;
-                right:10px;
-                width:180px;
-                height:10px;
-            }
-            #botleft{
-                position:fixed;
-                bottom:10px;
-                left:10px;
-                height:30px;
-                width:300px;
-            }
-            #cont-top, #cont-bottom{
-                width:100%;
-                height:50%;
-                background:white;
-            }
-            #cont-bottom div{
-                float:left;width:50%;height:100%;
-            }
-            #cont-bottom img{
-                max-height:100%;
-            }
-            @media (max-width:700px){
-                #container{
-                    width:95%;
-                    height:80%;
-                }
-            }
-        </style>
+        <link rel="stylesheet" type="text/css"  href="css/main.css">
     </head>
     <body>
     <div id="header">Mocking Spongebob</div>
