@@ -56,7 +56,7 @@ span.code{
     padding: 24px 12px;
     background-color: #193c4d;
     color: #eff6fa;
-    
+
 }
 .header::after{
     content: "";
@@ -130,6 +130,6 @@ span.code{
         padding: 24px;
     }
     .content{
-        padding: 24px;
+        padding: 36px;
     }
 }
