@@ -24,10 +24,6 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
     line-height: 1.1em;
 }
-a{
-    text-decoration: underline;
-    text-decoration-color: rgba(0,0,0,0.6);
-}
 em, i {
     font-style: italic;
 }
@@ -41,7 +37,7 @@ ul{
 }
 
 hr{
-    margin: 24px 0px;
+    margin: 36px 0px;
     border-color: rgba(25, 60, 77, 0.1);
 }
 
@@ -56,7 +52,7 @@ span.code{
     padding: 24px 12px;
     background-color: #193c4d;
     color: #eff6fa;
-    
+
 }
 .header::after{
     content: "";
@@ -74,6 +70,7 @@ span.code{
     margin: 0;
     max-width: 1100px;
     margin: 0 auto;
+    padding-right: 80px;
 }
 
 .main{
@@ -122,10 +119,13 @@ span.code{
     html{
         font-size: 18px;
     }
+    .header{
+        padding: 24px;
+    }
     .main{
         padding: 24px;
     }
     .content{
-        padding: 24px;
+        padding: 36px;
     }
 }
